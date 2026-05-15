@@ -1,0 +1,191 @@
+// ============================================================
+// Demo
+// ============================================================
+
+// --- Mixins ---
+@mixin section-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: 1.25rem;
+}
+
+@mixin mono {
+  font-family: 'Menlo', 'Monaco', monospace;
+}
+
+// --- Section ---
+.section {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sectionLabel {
+  @include section-label;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  max-width: 600px;
+  margin-bottom: 1.75rem;
+}
+
+.code {
+  @include mono;
+  font-size: 0.8rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--color-text);
+}
+
+// --- Box ---
+.box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.boxHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.dbIcon {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.boxTitle {
+  @include mono;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.rowCount {
+  font-size: 0.75rem;
+  color: var(--color-text-faint);
+}
+
+// --- Empty state ---
+.empty {
+  padding: 2rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.emptyNote {
+  font-size: 0.8rem;
+  color: var(--color-text-faint);
+}
+
+// --- Table ---
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+
+  thead tr {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    text-align: left;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-faint);
+  }
+
+  td {
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  tbody {
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover {
+      background: var(--color-bg);
+    }
+  }
+}
+
+.idCell {
+  @include mono;
+  font-size: 0.78rem;
+  color: var(--color-text-faint) !important;
+}
+
+// --- Badges ---
+.badge {
+  font-size: 0.72rem;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-weight: 500;
+
+  &Eng {
+    background: #e6f1fb;
+    color: #0c447c;
+  }
+
+  &Creative {
+    background: #eaf3de;
+    color: #27500a;
+  }
+}
+
+// --- Level bar ---
+.levelBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.levelFill {
+  height: 3px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: width 0.8s ease;
+}
+
+.levelNum {
+  font-size: 0.75rem;
+  color: var(--color-text-faint);
+  min-width: 24px;
+}
+
+// --- Footer note ---
+.note {
+  font-size: 0.8rem;
+  color: var(--color-text-faint);
+}
+
+.link {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
