@@ -53,7 +53,7 @@ export default function About() {
       <div className={styles.header}>
         {/* 写真をここに入れる場合は img タグに差し替えてください */}
         <div className={styles.avatar}>
-          <span className={styles.avatarInitial}>安</span>
+          <img src="/avatar.jpg" alt="安尾 優輝" />
         </div>
         <div>
           <h1 className={styles.name}>安尾 優輝</h1>

@@ -17,7 +17,7 @@ export default function Contact() {
           GitHub
         </a>
         <a
-          href="mailto:YOUR_EMAIL@example.com"
+          href="mailto:yasuoyuki20030513@gmail.com"
           className={styles.link}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">

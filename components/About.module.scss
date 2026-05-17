@@ -36,8 +36,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  // 写真に差し替える場合: overflow: hidden を追加し、
-  // <img> タグを中に入れてください
+  overflow: hidden;
 }
 
 .avatarInitial {
