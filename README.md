@@ -14,10 +14,10 @@ Next.js + Supabase (PostgreSQL) で構築したポートフォリオサイトで
 
 ## Demo セクションについて
 
-`/components/Demo.tsx` は Server Component として動作します。
+`/components/Demo.tsx` は Server Component として動作。
 ページリクエスト時にサーバーサイドで Supabase に SQL クエリを発行し、
-結果を SSR で描画します。クライアントへの JavaScript 送信が不要なため、
-パフォーマンスと SEO の観点で有利です。
+結果を SSR で描画。クライアントへの JavaScript 送信が不要なため、
+パフォーマンスと SEO の観点で有利。
 
 ```sql
 SELECT id, name, category, level
