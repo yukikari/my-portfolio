@@ -38,11 +38,11 @@ const timeline = [
   {
     year: '2026',
     title: '筑波大学 工学システム学類 卒業',
-    sub: '卒論：口腔内音源導入による代用発声の自然音声スペクトル再現',
+    sub: '卒論題目：口腔内音源導入による代用発声の自然音声スペクトル再現',
   },
   {
     year: '2026–',
-    title: '博士課程 進学（現在）',
+    title: '一貫性博士課程 進学（現在）',
     sub: 'エンパワーメント情報学プログラム・専攻：音響工学',
   },
 ]
@@ -51,14 +51,13 @@ export default function About() {
   return (
     <section id="about" className={styles.section}>
       <div className={styles.header}>
-        {/* 写真をここに入れる場合は img タグに差し替えてください */}
         <div className={styles.avatar}>
           <img src="/avatar.jpg" alt="安尾 優輝" />
         </div>
         <div>
           <h1 className={styles.name}>安尾 優輝</h1>
           <p className={styles.affiliation}>
-            筑波大学 エンパワーメント情報学プログラム（博士課程）
+            筑波大学 エンパワーメント情報学プログラム（一貫性博士課程）
           </p>
         </div>
       </div>
