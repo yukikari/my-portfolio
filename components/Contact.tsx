@@ -6,7 +6,7 @@ export default function Contact() {
       <p className={styles.sectionLabel}>Contact</p>
       <div className={styles.links}>
         <a
-          href="https://github.com/YOUR_GITHUB_USERNAME"
+          href="https://github.com/yukikari"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}

@@ -1,8 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import styles from './Demo.module.scss'
 
-// このコンポーネントはサーバーコンポーネントです（Next.js App Router）
-// Supabaseから直接データを取得してSSRで描画します
 
 type Skill = {
   id: number
@@ -94,7 +92,7 @@ export default async function Demo() {
       <p className={styles.note}>
         実装の詳細（テーブル定義・RLS設定）は{' '}
         <a
-          href="https://github.com/YOUR_GITHUB_USERNAME/my-portfolio"
+          href="https://github.com/yukikari/my-portfolio"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
