@@ -48,11 +48,13 @@ const timeline = [
 ]
 
 export default function About() {
+  const basePath = process.env.STATIC_EXPORT === 'true' ? '/portfolio' : ''
+
   return (
     <section id="about" className={styles.section}>
       <div className={styles.header}>
         <div className={styles.avatar}>
-          <img src="/avatar.jpg" alt="安尾 優輝" />
+          <img src={`${basePath}/avatar.jpg`} alt="安尾 優輝" />
         </div>
         <div>
           <h1 className={styles.name}>安尾 優輝</h1>

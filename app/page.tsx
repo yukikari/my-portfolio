@@ -6,15 +6,18 @@ import Contact from '@/components/Contact'
 import styles from './page.module.scss'
 
 export default function Home() {
+  const isStaticExport = process.env.STATIC_EXPORT === 'true'
+
   return (
     <>
-      <Nav />
+      <Nav showDemo={!isStaticExport} />
       <main className={styles.main}>
         <About />
         <Skills />
-        <Demo />
+        {!isStaticExport && <Demo />}
         <Contact />
       </main>
     </>
   )
 }
+
