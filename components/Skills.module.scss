@@ -1,20 +1,17 @@
-// ============================================================
-// Skills
-// ============================================================
-
 // --- Mixins ---
 @mixin section-label {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text-faint);
-  margin-bottom: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  display: inline-block;
 }
 
 // --- Section ---
 .section {
-  padding: 4rem 0;
+  padding: 5rem 0;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -26,44 +23,59 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 4rem;
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 }
 
 .groupLabel {
   @include section-label;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
 }
 
 // --- Skill row ---
 .skillRow {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 10px;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .skillName {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--color-text);
-  width: 120px;
+  width: 140px;
   flex-shrink: 0;
+  letter-spacing: -0.01em;
+
+  @media (max-width: 480px) {
+    width: 110px;
+    font-size: 0.85rem;
+  }
 }
 
 // --- Bar ---
 .barBg {
   flex: 1;
-  height: 3px;
-  background: var(--color-border);
-  border-radius: 2px;
+  height: 6px;
+  background: var(--color-primary-light);
+  border-radius: 99px;
+  overflow: hidden;
 }
 
 .barFill {
-  height: 3px;
-  background: var(--color-text);
-  border-radius: 2px;
-  transition: width 0.8s ease;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
+

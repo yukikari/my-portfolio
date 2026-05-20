@@ -1,20 +1,17 @@
-// ============================================================
-// About
-// ============================================================
-
 // --- Mixins ---
 @mixin section-label {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text-faint);
-  margin-bottom: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  display: inline-block;
 }
 
 // --- Section ---
 .section {
-  padding: 5rem 0 4rem;
+  padding: 6rem 0 5rem;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -22,53 +19,61 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 3rem;
+  gap: 1.75rem;
+  margin-bottom: 4rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  width: 80px;
+  height: 80px;
+  border-radius: 24px;
+  background: var(--color-primary-light);
+  border: 2px solid rgba(37, 99, 235, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
-}
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-.avatarInitial {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--color-text-muted);
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 .name {
   font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 400;
+  font-size: 2.25rem;
+  font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .affiliation {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: var(--color-text-muted);
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
 }
 
 // --- Two-column grid ---
 .grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 4rem;
   align-items: start;
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 3.5rem;
   }
 }
 
@@ -79,20 +84,27 @@
 // --- Timeline ---
 .timeline {
   list-style: none;
+  position: relative;
 }
 
 .timelineItem {
   display: flex;
-  gap: 0.875rem;
-  margin-bottom: 1rem;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .year {
-  font-size: 0.7rem;
-  color: var(--color-text-faint);
-  min-width: 38px;
-  padding-top: 4px;
-  line-height: 1.3;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  min-width: 48px;
+  padding-top: 2px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 .dotCol {
@@ -103,59 +115,75 @@
 }
 
 .dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--color-text);
-  margin-top: 5px;
+  background: var(--color-primary);
+  margin-top: 6px;
   flex-shrink: 0;
+  box-shadow: 0 0 0 4px var(--color-primary-light);
 }
 
 .line {
-  width: 1px;
+  width: 2px;
   flex: 1;
-  background: var(--color-border);
-  margin-top: 4px;
-  min-height: 16px;
+  background: var(--color-primary-light);
+  margin-top: 8px;
+  min-height: 24px;
 }
 
 .content {
   flex: 1;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.5rem;
 }
 
 .timelineTitle {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.925rem;
+  font-weight: 600;
   line-height: 1.4;
   color: var(--color-text);
 }
 
 .timelineSub {
-  font-size: 0.8rem;
+  font-size: 0.825rem;
   color: var(--color-text-muted);
-  margin-top: 2px;
-  line-height: 1.45;
+  margin-top: 4px;
+  line-height: 1.5;
 }
 
 // --- Hobbies ---
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .chip {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  padding: 4px 14px;
+  font-size: 0.825rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border: 1px solid rgba(37, 99, 235, 0.1);
+  border-radius: 99px;
+  padding: 6px 16px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color-primary);
+    color: var(--color-surface);
+    transform: translateY(-1px);
+  }
 }
 
 .chipDetail {
-  font-size: 0.75rem;
-  color: var(--color-text-faint);
-  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 1.25rem;
   line-height: 1.6;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
 }
+

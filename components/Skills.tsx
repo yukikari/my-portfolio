@@ -1,19 +1,46 @@
+import { createClient } from '@/lib/supabase/server'
 import styles from './Skills.module.scss'
 
-const engineeringSkills = [
+const fallbackEngineering = [
   { name: 'SQL', level: 75 },
   { name: 'Next.js', level: 65 },
   { name: 'React', level: 60 },
   { name: 'Python / 深層学習', level: 55 },
 ]
 
-const creativeSkills = [
+const fallbackCreative = [
   { name: '動画制作', level: 85 },
   { name: '文章編集・校正', level: 80 },
   { name: '紙面デザイン', level: 75 },
 ]
 
-export default function Skills() {
+async function getSkills() {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('skills')
+    .select('name, category, level')
+    .order('level', { ascending: false })
+
+  if (error || !data || data.length === 0) {
+    if (error) {
+      console.error('Supabase error:', error.message)
+    }
+    return null
+  }
+  return data
+}
+
+export default async function Skills() {
+  const dbSkills = await getSkills()
+
+  const engineeringSkills = dbSkills
+    ? dbSkills.filter((s) => s.category === 'engineering')
+    : fallbackEngineering
+
+  const creativeSkills = dbSkills
+    ? dbSkills.filter((s) => s.category === 'creative')
+    : fallbackCreative
+
   return (
     <section id="skills" className={styles.section}>
       <p className={styles.sectionLabel}>Skills</p>
@@ -50,3 +77,4 @@ export default function Skills() {
     </section>
   )
 }
+

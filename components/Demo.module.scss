@@ -1,24 +1,21 @@
-// ============================================================
-// Demo
-// ============================================================
-
 // --- Mixins ---
 @mixin section-label {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text-faint);
-  margin-bottom: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  display: inline-block;
 }
 
 @mixin mono {
-  font-family: 'Menlo', 'Monaco', monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Menlo', 'Monaco', monospace;
 }
 
 // --- Section ---
 .section {
-  padding: 4rem 0;
+  padding: 5rem 0;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -27,95 +24,117 @@
 }
 
 .description {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: var(--color-text-muted);
   line-height: 1.7;
-  max-width: 600px;
-  margin-bottom: 1.75rem;
+  max-width: 640px;
+  margin-bottom: 2rem;
 }
 
 .code {
   @include mono;
-  font-size: 0.8rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 1px 6px;
-  color: var(--color-text);
+  font-size: 0.825rem;
+  background: var(--color-primary-light);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  border-radius: 6px;
+  padding: 2px 6px;
+  color: var(--color-primary);
+  font-weight: 500;
 }
 
 // --- Box ---
 .box {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border-radius: 16px;
   overflow: hidden;
-  margin-bottom: 1rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.5rem;
 }
 
 .boxHeader {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.75rem 1.25rem;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg);
+  background: var(--color-surface);
 }
 
 .dbIcon {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
+  font-size: 1rem;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
 }
 
 .boxTitle {
-  @include mono;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
   flex: 1;
 }
 
 .rowCount {
   font-size: 0.75rem;
+  font-weight: 500;
   color: var(--color-text-faint);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 2px 8px;
+  border-radius: 99px;
 }
 
 // --- Empty state ---
 .empty {
-  padding: 2rem 1.25rem;
-  font-size: 0.875rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
   color: var(--color-text-muted);
   line-height: 1.6;
 }
 
 .emptyNote {
-  font-size: 0.8rem;
+  font-size: 0.825rem;
   color: var(--color-text-faint);
+  margin-top: 8px;
+  display: block;
+}
+
+// --- Table Container (for responsiveness) ---
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 // --- Table ---
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  min-width: 500px; // Ensures table doesn't get squished too much
 
   thead tr {
     border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
   }
 
   th {
     text-align: left;
-    padding: 0.6rem 1.25rem;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-faint);
+    color: var(--color-text-muted);
   }
 
   td {
-    padding: 0.65rem 1.25rem;
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--color-border);
     color: var(--color-text);
+    vertical-align: middle;
   }
 
   tbody {
@@ -123,33 +142,41 @@
       border-bottom: none;
     }
 
-    tr:hover {
-      background: var(--color-bg);
+    tr {
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: var(--color-primary-light);
+      }
     }
   }
 }
 
 .idCell {
   @include mono;
-  font-size: 0.78rem;
-  color: var(--color-text-faint) !important;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-faint);
 }
 
 // --- Badges ---
 .badge {
-  font-size: 0.72rem;
-  padding: 2px 9px;
-  border-radius: 999px;
-  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-weight: 600;
+  display: inline-block;
 
   &Eng {
-    background: #e6f1fb;
-    color: #0c447c;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid rgba(37, 99, 235, 0.1);
   }
 
   &Creative {
-    background: #eaf3de;
-    color: #27500a;
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid rgba(22, 163, 74, 0.1);
   }
 }
 
@@ -157,35 +184,42 @@
 .levelBar {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  min-width: 140px;
 }
 
 .levelFill {
-  height: 3px;
-  background: var(--color-text);
-  border-radius: 2px;
-  transition: width 0.8s ease;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .levelNum {
-  font-size: 0.75rem;
-  color: var(--color-text-faint);
-  min-width: 24px;
+  @include mono;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  min-width: 28px;
+  text-align: right;
 }
 
 // --- Footer note ---
 .note {
   font-size: 0.8rem;
   color: var(--color-text-faint);
+  margin-top: 1rem;
 }
 
 .link {
-  color: var(--color-text-muted);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.15s ease;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
 
   &:hover {
-    color: var(--color-text);
+    border-bottom-color: var(--color-primary);
   }
 }
+

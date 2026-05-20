@@ -90,7 +90,7 @@ export default function About() {
             <span className={styles.chip}>映画</span>
             <span className={styles.chip}>合唱</span>
           </div>
-          <p className={styles.chipDetail}>🎵 合唱：指揮 ／ パート Tenor</p>
+          <p className={styles.chipDetail}>🎵 合唱：指揮 / Tenor</p>
         </div>
       </div>
     </section>

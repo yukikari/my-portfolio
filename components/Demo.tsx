@@ -1,15 +1,8 @@
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase/server'
 import styles from './Demo.module.scss'
 
-
-type Skill = {
-  id: number
-  name: string
-  category: string
-  level: number
-}
-
-async function getSkillsFromDB(): Promise<Skill[]> {
+async function getSkillsFromDB() {
+  const supabase = createClient()
   const { data, error } = await supabase
     .from('skills')
     .select('id, name, category, level')
@@ -54,39 +47,42 @@ export default async function Demo() {
             </span>
           </p>
         ) : (
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>category</th>
-                <th>level</th>
-              </tr>
-            </thead>
-            <tbody>
-              {skills.map((skill) => (
-                <tr key={skill.id}>
-                  <td className={styles.idCell}>{skill.id}</td>
-                  <td>{skill.name}</td>
-                  <td>
-                    <span className={`${styles.badge} ${skill.category === 'engineering' ? styles.badgeEng : styles.badgeCreative}`}>
-                      {skill.category}
-                    </span>
-                  </td>
-                  <td>
-                    <div className={styles.levelBar}>
-                      <div
-                        className={styles.levelFill}
-                        style={{ width: `${skill.level}%` }}
-                      />
-                      <span className={styles.levelNum}>{skill.level}</span>
-                    </div>
-                  </td>
+          <div className={styles.tableContainer}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>name</th>
+                  <th>category</th>
+                  <th>level</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {skills.map((skill) => (
+                  <tr key={skill.id}>
+                    <td className={styles.idCell}>{skill.id}</td>
+                    <td>{skill.name}</td>
+                    <td>
+                      <span className={`${styles.badge} ${skill.category === 'engineering' ? styles.badgeEng : styles.badgeCreative}`}>
+                        {skill.category}
+                      </span>
+                    </td>
+                    <td>
+                      <div className={styles.levelBar}>
+                        <div
+                          className={styles.levelFill}
+                          style={{ width: `${skill.level}%` }}
+                        />
+                        <span className={styles.levelNum}>{skill.level}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
+
       </div>
 
       <p className={styles.note}>
