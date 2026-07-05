@@ -10,8 +10,6 @@
     "build:static": "node scripts/build-static.js"
   },
   "dependencies": {
-    "@supabase/ssr": "^0.10.3",
-    "@supabase/supabase-js": "^2.43.4",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18"
@@ -22,7 +20,9 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "png-to-ico": "^3.0.1",
     "sass": "^1.77.0",
+    "sharp": "^0.35.3",
     "typescript": "^5"
   }
 }

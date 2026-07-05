@@ -1,80 +1,92 @@
-import { createClient } from '@/lib/supabase/server'
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import { engineeringSkills, creativeSkills, type Skill } from '@/data/skills'
+import { useInView } from '@/hooks/useInView'
 import styles from './Skills.module.scss'
 
-const fallbackEngineering = [
-  { name: 'SQL', level: 75 },
-  { name: 'Next.js', level: 65 },
-  { name: 'React', level: 60 },
-  { name: 'Python / 深層学習', level: 55 },
-]
+const SEGMENT_COUNT = 20
 
-const fallbackCreative = [
-  { name: '動画制作', level: 85 },
-  { name: '文章編集・校正', level: 80 },
-  { name: '紙面デザイン', level: 75 },
-]
-
-async function getSkills() {
-  const supabase = createClient()
-  const { data, error } = await supabase
-    .from('skills')
-    .select('name, category, level')
-    .order('level', { ascending: false })
-
-  if (error || !data || data.length === 0) {
-    if (error) {
-      console.error('Supabase error:', error.message)
-    }
-    return null
-  }
-  return data
+function levelToSegments(level: number) {
+  return Math.round((level / 100) * SEGMENT_COUNT)
 }
 
-export default async function Skills() {
-  const dbSkills = await getSkills()
-
-  const engineeringSkills = dbSkills
-    ? dbSkills.filter((s) => s.category === 'engineering')
-    : fallbackEngineering
-
-  const creativeSkills = dbSkills
-    ? dbSkills.filter((s) => s.category === 'creative')
-    : fallbackCreative
+function SkillBar({
+  skill,
+  index,
+  pending,
+  active,
+}: {
+  skill: Skill
+  index: number
+  pending: boolean
+  active: boolean
+}) {
+  const litSegments = levelToSegments(skill.level)
 
   return (
-    <section id="skills" className={styles.section}>
+    <div className={styles.skillRow}>
+      <span className={styles.skillName}>{skill.name}</span>
+      <div className={styles.segments} role="img" aria-label={`${skill.name}: ${skill.level}%`}>
+        {Array.from({ length: SEGMENT_COUNT }).map((_, i) => {
+          const lit = i < litSegments
+          const opacity = lit ? 0.45 + (i / SEGMENT_COUNT) * 0.55 : 1
+          const classNames = [
+            styles.segment,
+            lit ? styles.lit : '',
+            pending ? styles.pending : '',
+            active ? styles.animate : '',
+          ]
+            .filter(Boolean)
+            .join(' ')
+          return (
+            <span
+              key={i}
+              className={classNames}
+              style={{
+                opacity: lit ? opacity : undefined,
+                transitionDelay: active ? `${index * 60 + i * 18}ms` : undefined,
+              }}
+              aria-hidden="true"
+            />
+          )
+        })}
+      </div>
+      <span className={styles.skillLevel}>{skill.level}</span>
+    </div>
+  )
+}
+
+export default function Skills() {
+  const ref = useRef<HTMLElement>(null)
+  const inView = useInView(ref)
+  // Only collapse segments into their pre-animation state once mounted
+  // client-side, so no-JS / pre-hydration output always shows full bars.
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const pending = mounted && !inView
+
+  return (
+    <section id="skills" className={styles.section} ref={ref}>
       <p className={styles.sectionLabel}>Skills</p>
       <div className={styles.grid}>
         <div>
           <p className={styles.groupLabel}>エンジニアリング</p>
-          {engineeringSkills.map((skill) => (
-            <div key={skill.name} className={styles.skillRow}>
-              <span className={styles.skillName}>{skill.name}</span>
-              <div className={styles.barBg}>
-                <div
-                  className={styles.barFill}
-                  style={{ width: `${skill.level}%` }}
-                />
-              </div>
-            </div>
+          {engineeringSkills.map((skill, i) => (
+            <SkillBar key={skill.name} skill={skill} index={i} pending={pending} active={inView} />
           ))}
         </div>
         <div>
           <p className={styles.groupLabel}>クリエイティブ</p>
-          {creativeSkills.map((skill) => (
-            <div key={skill.name} className={styles.skillRow}>
-              <span className={styles.skillName}>{skill.name}</span>
-              <div className={styles.barBg}>
-                <div
-                  className={styles.barFill}
-                  style={{ width: `${skill.level}%` }}
-                />
-              </div>
-            </div>
+          {creativeSkills.map((skill, i) => (
+            <SkillBar key={skill.name} skill={skill} index={i} pending={pending} active={inView} />
           ))}
         </div>
       </div>
     </section>
   )
 }
-

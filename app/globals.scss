@@ -1,32 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-
 // ============================================================
-// CSS Custom Properties (design tokens)
+// CSS Custom Properties (design tokens) — "Spectrogram Dark"
 // ============================================================
 :root {
-  --color-bg:             #f8fafc; // Slate 50
-  --color-surface:        #ffffff; // White
-  --color-border:         #e2e8f0; // Slate 200
-  --color-primary:        #2563eb; // Royal Blue
-  --color-primary-hover:  #1d4ed8;
-  --color-primary-light:  #eff6ff; // Light Blue
-  --color-text:           #0f172a; // Slate 900
-  --color-text-muted:     #475569; // Slate 600
-  --color-text-faint:     #94a3b8; // Slate 400
-  
-  --font-display:         'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-body:            'Inter', system-ui, sans-serif;
-  --max-width:            860px;
-  
-  --shadow-sm:            0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md:            0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg:            0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --color-bg: #0a0e14; // ページ背景(濃紺黒)
+  --color-surface: #111823; // カード・ナビ背景
+  --color-surface-raised: #18212f; // ホバー時など一段明るい面
+  --color-border: rgba(230, 232, 235, 0.08);
+  --color-accent: #00e5c7; // シアン(周波数の可視化イメージ)
+  --color-accent-dim: rgba(0, 229, 199, 0.35);
+  --color-accent-faint: rgba(0, 229, 199, 0.08); // チップ背景等
+  --color-text: #e6e8eb;
+  --color-text-muted: #8a94a6;
+  --color-text-faint: #566173;
+  --max-width: 960px;
+
+  // Typography — populated with next/font CSS variables via layout.tsx,
+  // with system fallbacks so styling still degrades gracefully.
+  --font-display-latin: 'Space Grotesk', system-ui, sans-serif;
+  --font-display-jp: 'Zen Kaku Gothic New', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans JP', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: var(--font-display-latin), var(--font-display-jp), sans-serif;
 }
 
 // ============================================================
 // Reset
 // ============================================================
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -42,29 +44,68 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.7; // slightly wider for dark mode legibility
+  letter-spacing: 0.025em; // light letter spacing to enhance Zen Kaku / IBM Plex
   -webkit-font-smoothing: antialiased;
 }
 
-a   { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
 
 // ============================================================
 // Animations
 // ============================================================
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-up {
   animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
-  &-delay-1 { animation-delay: 0.1s; opacity: 0; }
-  &-delay-2 { animation-delay: 0.2s; opacity: 0; }
-  &-delay-3 { animation-delay: 0.3s; opacity: 0; }
-  &-delay-4 { animation-delay: 0.4s; opacity: 0; }
+  &-delay-1 {
+    animation-delay: 0.1s;
+    opacity: 0;
+  }
+  &-delay-2 {
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+  &-delay-3 {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+  &-delay-4 {
+    animation-delay: 0.4s;
+    opacity: 0;
+  }
 }
 
+// ============================================================
+// Reduced motion — disable all entrance/looping animations
+// globally; content is shown in its final state immediately.
+// ============================================================
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

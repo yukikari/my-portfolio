@@ -4,7 +4,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-accent);
   margin-bottom: 1.5rem;
   display: inline-block;
 }
@@ -41,7 +41,7 @@
 .skillRow {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-bottom: 1.25rem;
 
   &:last-child {
@@ -58,24 +58,62 @@
   letter-spacing: -0.01em;
 
   @media (max-width: 480px) {
-    width: 110px;
-    font-size: 0.85rem;
+    width: 92px;
+    font-size: 0.8rem;
   }
 }
 
-// --- Bar ---
-.barBg {
+// --- Equalizer segments ---
+.segments {
   flex: 1;
-  height: 6px;
-  background: var(--color-primary-light);
-  border-radius: 99px;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 3px; // slightly wider gap to make segments sleeker
+  height: 16px; // slightly compact height for tighter alignment
 }
 
-.barFill {
+.segment {
+  flex: 1;
   height: 100%;
-  background: var(--color-primary);
-  border-radius: 99px;
-  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 1.5px;
+  border-radius: 1.5px; // slightly rounder for premium feel
+  background: rgba(0, 229, 199, 0.12); // slightly more visible off-state
+  transform: scaleY(1);
+  transform-origin: bottom;
+  opacity: 1;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.lit {
+    background: var(--color-accent);
+  }
+
+  // JS opts individual segments into a "collapsed" starting state right
+  // after mount, then `.animate` (set once the section enters the
+  // viewport) transitions them up in a left-to-right stagger. Without
+  // JS, segments never receive `.pending` and simply render at full
+  // height — content stays visible with no animation dependency.
+  &.pending {
+    transform: scaleY(0.35);
+  }
+
+  &.pending.animate {
+    transform: scaleY(1);
+  }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .segment {
+    transform: scaleY(1) !important;
+    transition: none !important;
+  }
+}
+
+.skillLevel {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}

@@ -1,35 +1,43 @@
 # 安尾 優輝のポートフォリオ
 
-Next.js と Supabase (PostgreSQL) で構築したポートフォリオサイト。
-スキルデータはDBで管理しており、サーバーサイドで取得・描画している。
+Next.js (App Router) で構築し、GitHub Pages に静的サイトとして公開しているポートフォリオサイト。
+コンテンツは `data/` 配下の TypeScript ファイルで管理しており、ビルド時に静的 HTML へ埋め込まれる。
 
 ## 技術スタック
 
 | 技術 | 選定理由 |
 |------|----------|
-| Next.js 14 (App Router) | Server Components でDBアクセスをサーバーに閉じ込め、クライアントへの不要なJS送信を避けた |
-| TypeScript | 型定義による補完とバグの早期検出。特にSupabaseのレスポンス型との整合性管理に効いた |
+| Next.js 14 (App Router) | `output: 'export'` による完全な静的サイト生成。サーバー処理なしで GitHub Pages に配信できる |
+| TypeScript | 型定義による補完とバグの早期検出。`data/` のコンテンツ型を一元管理できる |
 | SCSS Modules | コンポーネント単位でスタイルをスコープし、ネストや変数で見通しよく書いた |
-| Supabase (PostgreSQL) | SQLをそのまま書けること、RLSでアクセス制御を宣言的に管理できることを評価して採用 |
-| Vercel | Next.jsとの親和性が高く、pushのたびに自動でデプロイが走る点が開発体験としてよかった |
+| next/font | Google Fonts をビルド時にセルフホスト化し、レンダーブロッキングなしで日本語/欧文フォントを提供 |
 
-## Demoセクションについて
+## データ管理について
 
-`/components/Demo.tsx` をasync Server Componentとして実装し、リクエスト時にSupabaseへ直接クエリを発行している。
-`useEffect` を使ったクライアントサイドフェッチと比べて、初期表示が速くSEOにも有利な構成になっている。
+以前は Supabase (PostgreSQL) からスキルデータを取得していたが、サイト全体が静的公開のみのため、
+現在は `data/skills.ts` / `data/timeline.ts` / `data/works.ts` にコンテンツを直接記述する構成に変更した。
+Server Component 側で DB へ問い合わせる必要がなくなり、ビルド・デプロイの単純化と依存の削減を実現している。
 
-```sql
-SELECT id, name, category, level
-FROM skills
-ORDER BY category ASC, level DESC;
+## 静的ビルド・デプロイ
+
+```bash
+npm run build:static
 ```
+
+`scripts/build-static.js` が `STATIC_EXPORT=true` で `next build` を実行し、`out/` の内容を
+`../my-portfolio-static`(GitHub Pages 配信用リポジトリ)へ移動する。`.git` は温存され、`.nojekyll` が生成される。
+移動後は static リポジトリ側で内容を確認し、手動で commit & push する。
+
+`STATIC_EXPORT=true` のとき `next.config.js` は `output: 'export'` と `basePath: '/portfolio'` を有効化する。
+`public/` 配下の画像を `<img src>` で参照する箇所は `lib/assetPath.ts` の `assetPath()` でプレフィックスを付与し、
+`npm run dev`(basePath なし)と静的ビルド(basePath あり)の両方で表示が壊れないようにしている。
 
 ## 実装中に詰まった点
 
-**Server ComponentからのSupabase接続**
-最初、クライアントコンポーネントと同じ感覚で`useEffect`を書こうとしてエラーになった。
-Server Componentでは`async/await`でそのままデータ取得できることを確認してから書き直した。
+**Server Component からの外部 DB 接続(旧構成)**
+以前 Supabase を使っていた頃、Server Component から `async/await` で直接データ取得する構成にしていたが、
+静的エクスポートではサーバー処理自体が存在しないため、ビルド時に解決可能な静的データファイルへ移行した。
 
-**RLSの設定**
-Supabaseはデフォルトで全アクセスをブロックする。最初はデータが返ってこず原因がわからなかったが、
-RLSポリシーで`anon`ロールへのSELECTを明示的に許可することで解決した。
+**basePath とアセットパス**
+GitHub Pages のサブパス配信(`/portfolio/`)と `next dev` のルート配信を両立させるため、
+`public/` 配下のアセットは `assetPath()` ヘルパーで明示的にプレフィックスを付与する方針にした。

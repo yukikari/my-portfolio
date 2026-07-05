@@ -4,7 +4,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-accent);
   margin-bottom: 1.5rem;
   display: inline-block;
 }
@@ -33,19 +33,18 @@
   width: 120px;
   height: 120px;
   border-radius: 32px;
-  background: var(--color-primary-light);
-  border: 2px solid rgba(37, 99, 235, 0.1);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    border-color: var(--color-accent-dim);
   }
 
   img {
@@ -101,12 +100,67 @@
   &:last-child {
     margin-bottom: 0;
   }
+
+  // Scroll entrance animation — fade + translateY.
+  // CSS Scroll-Driven Animations are the first choice; browsers that
+  // don't support them get the IntersectionObserver + .inView fallback
+  // (see useInView hook), which uses the same keyframes via transition.
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @supports (animation-timeline: view()) {
+    opacity: 1;
+    transform: none;
+    animation: timelineEnter linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+    transition: none;
+  }
+}
+
+// IntersectionObserver fallback: parent list gets `.inView` once it has
+// entered the viewport, revealing items (each item's own transition-delay
+// is set inline for the stagger).
+.timeline:not(.inView) .timelineItem {
+  @supports not (animation-timeline: view()) {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.timeline.inView .timelineItem {
+  @supports not (animation-timeline: view()) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes timelineEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timelineItem {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 .year {
+  font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-accent);
   min-width: 48px;
   padding-top: 2px;
   line-height: 1.4;
@@ -120,20 +174,37 @@
   flex-shrink: 0;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  margin-top: 6px;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 4px var(--color-primary-light);
+// "Waveform peak" motif — three vertical bars of varying height,
+// replacing the plain dot.
+.peak {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 15px; // slightly higher for visibility
+  margin-top: 3px;
+}
+
+.peakBar {
+  width: 2.5px; // slightly thinner
+  border-radius: 1.5px;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent-dim);
+
+  &:nth-child(1) {
+    height: 30%; // asymmetrical peak structure
+  }
+  &:nth-child(2) {
+    height: 100%;
+  }
+  &:nth-child(3) {
+    height: 55%;
+  }
 }
 
 .line {
   width: 2px;
   flex: 1;
-  background: var(--color-primary-light);
+  background: var(--color-border);
   margin-top: 8px;
   min-height: 24px;
 }
@@ -167,16 +238,15 @@
 .chip {
   font-size: 0.825rem;
   font-weight: 500;
-  color: var(--color-primary);
-  background: var(--color-primary-light);
-  border: 1px solid rgba(37, 99, 235, 0.1);
+  color: var(--color-accent);
+  background: var(--color-accent-faint);
+  border: 1px solid var(--color-accent-dim);
   border-radius: 99px;
   padding: 6px 16px;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background: var(--color-primary);
-    color: var(--color-surface);
+    background: var(--color-accent-dim);
     transform: translateY(-1px);
   }
 }
@@ -190,6 +260,4 @@
   border: 1px solid var(--color-border);
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  box-shadow: var(--shadow-sm);
 }
-
