@@ -1,119 +1,35 @@
-// --- Mixins ---
-@mixin section-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 1.5rem;
-  display: inline-block;
+.list {
+  margin: 0;
 }
 
-// --- Section ---
-.section {
-  padding: 5rem 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.sectionLabel {
-  @include section-label;
-}
-
-// --- Two-column grid ---
-.grid {
+.group {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 10em minmax(0, 1fr); // 「ソフトウェア開発」が1行に収まる幅
+  gap: 24px;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
 
-  @media (max-width: 768px) {
+  &:first-child {
+    border-top: 0;
+    padding-top: 4px;
+  }
+}
+
+.title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  padding-top: 0.15em;
+}
+
+.body {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .group {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 4px;
   }
-}
-
-.groupLabel {
-  @include section-label;
-  font-size: 0.7rem;
-  color: var(--color-text-muted);
-}
-
-// --- Skill row ---
-.skillRow {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.skillName {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-text);
-  width: 140px;
-  flex-shrink: 0;
-  letter-spacing: -0.01em;
-
-  @media (max-width: 480px) {
-    width: 92px;
-    font-size: 0.8rem;
-  }
-}
-
-// --- Equalizer segments ---
-.segments {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 3px; // slightly wider gap to make segments sleeker
-  height: 16px; // slightly compact height for tighter alignment
-}
-
-.segment {
-  flex: 1;
-  height: 100%;
-  min-width: 1.5px;
-  border-radius: 1.5px; // slightly rounder for premium feel
-  background: rgba(0, 229, 199, 0.12); // slightly more visible off-state
-  transform: scaleY(1);
-  transform-origin: bottom;
-  opacity: 1;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &.lit {
-    background: var(--color-accent);
-  }
-
-  // JS opts individual segments into a "collapsed" starting state right
-  // after mount, then `.animate` (set once the section enters the
-  // viewport) transitions them up in a left-to-right stagger. Without
-  // JS, segments never receive `.pending` and simply render at full
-  // height — content stays visible with no animation dependency.
-  &.pending {
-    transform: scaleY(0.35);
-  }
-
-  &.pending.animate {
-    transform: scaleY(1);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .segment {
-    transform: scaleY(1) !important;
-    transition: none !important;
-  }
-}
-
-.skillLevel {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  width: 28px;
-  text-align: right;
-  flex-shrink: 0;
 }

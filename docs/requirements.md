@@ -1,6 +1,8 @@
+> **注記（2026年10月28日）**: この文書は2026年7月の「Spectrogram Dark」刷新時のもの。デザインは2026年10月に紙色の誌面調へ作り直したため、デザイン仕様の節は現行と異なる（現行の決めごとは README.md を参照）。デプロイ手順と技術制約の記述は今も有効。
+
 # ポートフォリオサイト刷新 要件定義書
 
-- 作成日: 2026-07-05
+- 作成日: 2026年7月5日
 - 対象リポジトリ: `my-portfolio`(このリポジトリ / https://github.com/yukikari/my-portfolio)
 - 公開URL: https://yukikari.github.io/portfolio/
 - 本書は実装エージェント(Claude Code / Codex / Antigravity 等)が**会話コンテキストなしで実装できる**ことを目的とした自己完結ドキュメントである。

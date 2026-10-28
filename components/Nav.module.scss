@@ -1,55 +1,49 @@
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 0 1.5rem;
-  border-bottom: 1px solid transparent;
-  transition: background 0.3s ease, border-color 0.3s ease;
+.top {
+  padding-top: 28px;
+}
 
-  &.scrolled {
-    background: rgba(10, 14, 20, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom-color: var(--color-border);
-  }
+.inner {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.name {
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
 }
 
 .nav {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  height: 64px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
-}
-
-.links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-
-  @media (max-width: 480px) {
-    gap: 1.25rem;
-  }
+  flex-wrap: wrap; // 320px幅でも横スクロールを出さない
+  gap: 4px clamp(16px, 3vw, 32px);
+  font-size: 0.92rem;
 }
 
 .link {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  transition: color 0.2s ease;
+  white-space: nowrap;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    color: var(--color-accent);
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+}
+
+@media (max-width: 480px) {
+  // 名前はすぐ下のヒーローに大きく出るので、狭い画面では省く
+  .name {
+    display: none;
+  }
+
+  .nav {
+    font-size: 0.9rem;
+    gap: 4px 18px;
   }
 }

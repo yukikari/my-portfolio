@@ -1,34 +1,35 @@
-import WaveCanvas from './WaveCanvas'
+import { profile } from '@/data/profile'
+import { voiceLinePath, VOICE_LINE_WIDTH, VOICE_LINE_HEIGHT } from '@/lib/voiceLine'
+import Seal from './Seal'
 import styles from './Hero.module.scss'
 
 export default function Hero() {
   return (
-    <section className={styles.hero}>
-      <WaveCanvas />
-      <div className={styles.content}>
+    <section className={`wrap ${styles.hero}`}>
+      <div className={styles.head}>
         <h1 className={styles.name}>
-          安尾 優輝
-          <span className={styles.romaji}>YUKI YASUO</span>
+          {profile.name}
+          <span className={styles.romanized}>{profile.nameRomanized}</span>
         </h1>
-        <p className={styles.affiliation}>
-          筑波大学 エンパワーメント情報学プログラム（一貫制博士課程）／ 音響工学
-        </p>
+        <Seal className={styles.seal} />
       </div>
-      <a href="#about" className={styles.scrollCue} aria-label="Scroll to About section">
-        <span className={styles.scrollLabel}>SCROLL</span>
-        <svg
-          width="14"
-          height="20"
-          viewBox="0 0 14 20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          aria-hidden="true"
-        >
-          <path d="M1 1l6 6 6-6" />
-          <path d="M1 11l6 6 6-6" />
-        </svg>
-      </a>
+
+      {/* 声の線。読み込み時に一度だけ左から現れる（reduced motion では静止） */}
+      <svg
+        className={styles.voice}
+        viewBox={`0 0 ${VOICE_LINE_WIDTH} ${VOICE_LINE_HEIGHT}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path d={voiceLinePath()} />
+      </svg>
+
+      <p className={styles.tagline}>
+        {profile.tagline.map((sentence) => (
+          <span key={sentence}>{sentence}</span>
+        ))}
+      </p>
+      <p className={styles.affiliation}>{profile.affiliation}</p>
     </section>
   )
 }

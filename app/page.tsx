@@ -1,23 +1,25 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
-import Skills from '@/components/Skills'
+import Timeline from '@/components/Timeline'
 import Works from '@/components/Works'
+import Skills from '@/components/Skills'
 import Contact from '@/components/Contact'
-import styles from './page.module.scss'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
     <>
       <Nav />
-      <Hero />
-      <main className={styles.main}>
+      <main>
+        <Hero />
         <About />
-        <Skills />
+        <Timeline />
         <Works />
+        <Skills />
         <Contact />
       </main>
+      <Footer />
     </>
   )
 }
-

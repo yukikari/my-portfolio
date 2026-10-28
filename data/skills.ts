@@ -1,17 +1,21 @@
-export interface Skill {
-  name: string
-  level: number // 0–100
+export interface SkillGroup {
+  title: string
+  body: string
 }
 
-export const engineeringSkills: Skill[] = [
-  { name: 'Python / 深層学習', level: 90 },
-  { name: 'Next.js', level: 70 },
-  { name: 'React', level: 60 },
-  { name: 'SQL', level: 60 },
-]
-
-export const creativeSkills: Skill[] = [
-  { name: '動画制作', level: 95 },
-  { name: '文章編集・校正', level: 85 },
-  { name: '紙面デザイン', level: 85 },
+// 数値のレベル表示はやめ、作業の領域ごとに何ができるかを文章で書く。
+// 3つの見出しは「作業領域」で揃える（成果物名や技術名を混ぜない）。
+export const skillGroups: SkillGroup[] = [
+  {
+    title: '映像制作',
+    body: '撮影と、DaVinci Resolveでの編集。字幕と説明テロップの設計、音量の調整、納品仕様の確認、BGMのライセンス確認まで一人で行います。',
+  },
+  {
+    title: '紙面・文章',
+    body: '紙面のレイアウトと、文章の編集・校正。',
+  },
+  {
+    title: 'ソフトウェア開発',
+    body: '研究の信号処理や深層学習のコードはPythonで、このサイトのようなWebはTypeScriptとNext.jsで書きます。編集ソフトをスクリプトから動かして、繰り返しの作業も自動化します。',
+  },
 ]

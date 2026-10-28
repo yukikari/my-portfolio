@@ -1,0 +1,40 @@
+.section {
+  display: grid;
+  grid-template-columns: var(--label-col) minmax(0, 1fr);
+  column-gap: var(--label-gap);
+  padding-top: 56px;
+  padding-bottom: 56px;
+  border-top: 1px solid var(--rule);
+}
+
+.first {
+  border-top: 0;
+}
+
+.title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  padding-top: 0.15em;
+}
+
+.body {
+  max-width: 40em;
+}
+
+@media (max-width: 900px) {
+  .section {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}

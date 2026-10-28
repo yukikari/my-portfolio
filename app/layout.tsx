@@ -1,17 +1,18 @@
 import type { Metadata } from 'next'
-import { spaceGrotesk, zenKakuGothicNew, ibmPlexSansJP, jetBrainsMono } from './fonts'
+import { notoSerifJP, notoSansJP } from './fonts'
 import { assetPath } from '@/lib/assetPath'
+import { profile } from '@/data/profile'
 import './globals.scss'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://yukikari.github.io/portfolio'),
-  title: '安尾 優輝 | Portfolio',
-  description: '筑波大学 エンパワーメント情報学プログラム 博士課程 — 音響工学・システム開発',
+  metadataBase: new URL(profile.siteUrl),
+  title: `${profile.name} | Portfolio`,
+  description: profile.siteDescription,
   openGraph: {
-    title: '安尾 優輝 | Portfolio',
-    description: '音響工学・システム開発・映像制作 — 筑波大学 博士課程',
+    title: `${profile.name} | Portfolio`,
+    description: profile.siteDescription,
     url: '/',
-    siteName: '安尾 優輝 | Portfolio',
+    siteName: `${profile.name} | Portfolio`,
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     locale: 'ja_JP',
     type: 'website',
@@ -27,11 +28,11 @@ export const metadata: Metadata = {
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: '安尾 優輝',
-  alternateName: 'Yuki Yasuo',
-  url: 'https://yukikari.github.io/portfolio/',
+  name: profile.name,
+  alternateName: profile.nameRomanized,
+  url: profile.siteUrl,
   affiliation: { '@type': 'CollegeOrUniversity', name: '筑波大学' },
-  sameAs: ['https://github.com/yukikari'],
+  sameAs: [profile.contact.github],
 }
 
 export default function RootLayout({
@@ -40,10 +41,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="ja"
-      className={`${spaceGrotesk.variable} ${zenKakuGothicNew.variable} ${ibmPlexSansJP.variable} ${jetBrainsMono.variable}`}
-    >
+    <html lang="ja" className={`${notoSerifJP.variable} ${notoSansJP.variable}`}>
       <body>
         {children}
         <script

@@ -1,0 +1,37 @@
+.list {
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 5.5em minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+
+  & + & {
+    border-top: 1px solid var(--rule);
+  }
+}
+
+.year {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95rem;
+  padding-top: 0.1em;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.sub {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 480px) {
+  .item {
+    grid-template-columns: 4.5em minmax(0, 1fr);
+  }
+}

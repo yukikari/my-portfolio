@@ -1,6 +1,8 @@
+> **注記（2026年10月28日）**: この文書は2026年7月の「Spectrogram Dark」刷新時のもの。デザインは2026年10月に紙色の誌面調へ作り直したため、デザイン仕様の節は現行と異なる（現行の決めごとは README.md を参照）。デプロイ手順と技術制約の記述は今も有効。
+
 # Antigravity 引き継ぎ資料 — ポートフォリオ視覚微調整フェーズ
 
-- 作成日: 2026-07-05
+- 作成日: 2026年7月5日
 - 対象プロジェクト: `C:\Users\yuki yasuo\Documents\Projects\my-portfolio`(Next.js 14.2.3 App Router + TypeScript + SCSS Modules)
 - 公開URL: https://yukikari.github.io/portfolio/(GitHub Pages)
 - 一次仕様書: **`docs/requirements.md`**(本書とセットで必ず読むこと。デザイントークン・非機能要件・受け入れ基準の一次ソース)
@@ -63,7 +65,7 @@ STATIC_EXPORT=true npx next build   # out/ が生成される(basePath /portfoli
 
 - About の名前見出しは `<h2>`(h1 は Hero の名前のみ、ページに1つ)
 - `metadata.icons` は `assetPath()` で手動プレフィックス(Next 14.2.3 は icons に basePath を自動付与しないため)
-- OGP 画像等は `scripts/generate-og.js`(sharp + png-to-ico)で生成 → `public/` にコミット済み。デザイン変更時はスクリプトを再実行して再生成する
+- OGP 画像等は `scripts/generate-assets.js（旧 generate-og.js）`(sharp + png-to-ico)で生成 → `public/` にコミット済み。デザイン変更時はスクリプトを再実行して再生成する
 - スキル値の正データは `data/skills.ts`(公開サイトの値に準拠)。文言・実績データは `data/{skills,timeline,works}.ts` に集約
 
 ## 7. 仕上げ後の流れ(ユーザー確認後)

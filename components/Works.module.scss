@@ -1,199 +1,120 @@
-@mixin section-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 1.5rem;
-  display: inline-block;
-}
-
+// 制作と研究は他のセクションと組み方を変え、見出しの下に
+// 作品を全幅で並べる（左見出し・右本文の繰り返しを崩す）。
 .section {
-  padding: 5rem 0;
-  border-bottom: 1px solid var(--color-border);
+  padding-top: 56px;
+  padding-bottom: 56px;
+  border-top: 1px solid var(--rule);
 }
 
-.sectionLabel {
-  @include section-label;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  overflow: hidden;
-
-  opacity: 0;
-  transform: translateY(16px);
-  transition-property: opacity, transform, background, border-color;
-  transition-duration: 0.6s, 0.6s, 0.25s, 0.25s;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-
-  @supports (animation-timeline: view()) {
-    opacity: 1;
-    transform: none;
-    animation: workCardEnter linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 25%;
-  }
-
-  &.visible {
-    @supports not (animation-timeline: view()) {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  &:hover {
-    background: var(--color-surface-raised);
-    border-color: var(--color-accent);
-    box-shadow: 0 4px 20px rgba(0, 229, 199, 0.12); // subtle premium glow
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes workCardEnter {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
-
-    &:hover {
-      transform: none !important;
-    }
-  }
-}
-
-// --- Thumbnail ---
-.thumbnail {
-  position: relative;
-  height: 140px;
-  overflow: hidden;
-  background: var(--color-surface-raised);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-// CSS-only "spectrogram/waveform" pattern placeholders per category,
-// using layered gradients to simulate acoustic analyzer grids.
-@mixin waveform-placeholder($density: 12px, $opacity: 0.08) {
-  background-image:
-    radial-gradient(circle at 50% 120%, rgba(0, 229, 199, 0.15) 0%, transparent 80%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0, 229, 199, $opacity) 0px,
-      rgba(0, 229, 199, $opacity) 2px,
-      transparent 2px,
-      transparent $density
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(230, 232, 235, 0.03) 0px,
-      rgba(230, 232, 235, 0.03) 1px,
-      transparent 1px,
-      transparent 16px
-    );
-  background-color: var(--color-surface);
-}
-
-.categoryDev {
-  @include waveform-placeholder(12px, 0.08);
-}
-
-.categoryVideo {
-  @include waveform-placeholder(8px, 0.12);
-}
-
-.categoryDesign {
-  @include waveform-placeholder(16px, 0.06);
-}
-
-.categoryResearch {
-  @include waveform-placeholder(10px, 0.10);
-}
-
-// --- Body ---
-.body {
-  position: relative;
-  padding: 1.25rem 1.5rem 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-}
-
-.badge {
-  font-size: 0.7rem;
+.heading {
+  font-family: var(--serif);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--color-accent);
-  background: var(--color-accent-faint);
-  border: 1px solid var(--color-accent-dim);
-  border-radius: 99px;
-  padding: 3px 10px;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  margin-bottom: 4px;
 }
 
-.year {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-text-faint);
+.list {
+  list-style: none;
+}
+
+.work {
+  padding: 34px 0 38px;
+  border-top: 1px solid var(--rule);
+
+  &:first-child {
+    border-top: 0;
+    padding-top: 22px;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .title {
-  font-size: 1rem;
+  font-family: var(--serif);
   font-weight: 600;
-  line-height: 1.4;
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
+  font-size: 1.55rem;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  font-feature-settings: 'palt';
+  word-break: keep-all; // 語の途中で折り返さない（空白の位置で折る）
+  overflow-wrap: anywhere;
 }
 
-.description {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  line-height: 1.6;
+.period {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
-.linkIcon {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.5rem;
-  color: var(--color-text-faint);
+.role {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-top: 2px;
+
+  &::before {
+    content: '担当：';
+  }
+}
+
+.body {
+  max-width: 40em;
+  margin-top: 0.9em;
+
+  p + p {
+    margin-top: 0.8em;
+  }
+}
+
+.link {
+  display: inline-block;
+  margin-top: 0.9em;
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--ink);
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  .work {
+    padding: 26px 0 30px;
+  }
+
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .period {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    font-size: 1.2rem; // 320px幅でも13文字のタイトルが1行に収まる
+  }
 }

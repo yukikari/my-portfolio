@@ -1,96 +1,122 @@
 .hero {
-  position: relative;
-  min-height: calc(100svh - 64px);
-  margin-top: 64px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 2rem 1.5rem;
-  text-align: center;
+  padding-top: clamp(72px, 14vh, 150px);
+  padding-bottom: clamp(72px, 12vh, 130px);
 }
 
-.content {
-  position: relative;
-  z-index: 1;
-  max-width: var(--max-width);
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
 }
 
 .name {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 8vw, 5rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--color-text);
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.9rem, 8.2vw, 5.6rem);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  font-feature-settings: 'palt';
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  gap: 0.35em;
 }
 
-.romaji {
-  font-family: var(--font-display-latin);
-  font-size: clamp(0.9rem, 2vw, 1.15rem);
+.romanized {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.seal {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  margin-bottom: 0.55rem;
+}
+
+// 声の線。読み込み時に左から右へ一度だけ現れる（clip-path を広げる）。
+// stroke-dasharray による描画は non-scaling-stroke と pathLength の組み合わせで
+// 幅によって所要時間が変わるため使わない。
+.voice {
+  display: block;
+  width: 100%;
+  height: 72px;
+  margin: 28px 0 20px;
+  overflow: visible;
+  clip-path: inset(-8px 0 -8px 0);
+  animation: voiceReveal 1.9s cubic-bezier(0.3, 0, 0.2, 1) both;
+
+  path {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.85;
+  }
+}
+
+@keyframes voiceReveal {
+  from {
+    clip-path: inset(-8px 100% -8px 0);
+  }
+  to {
+    clip-path: inset(-8px 0 -8px 0);
+  }
+}
+
+.tagline {
+  font-family: var(--serif);
   font-weight: 500;
-  letter-spacing: 0.45em;
-  color: var(--color-text-muted);
-  text-indent: 0.45em; // visually re-center the trailing letter-spacing
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  line-height: 1.9;
+  max-width: 30em;
+
+  span {
+    display: block;
+    text-wrap: balance; // 折り返すときは2行の長さを揃え、句点だけの行を作らない
+  }
 }
 
 .affiliation {
-  margin-top: 1.75rem;
-  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
-  color: var(--color-text-muted);
-  line-height: 1.7;
+  margin-top: 1.1rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  word-break: keep-all; // 語の途中（プログ｜ラム）で折らず、空白の位置で折る
+  overflow-wrap: anywhere;
 }
 
-.scrollCue {
-  position: absolute;
-  left: 50%;
-  bottom: 2rem;
-  transform: translateX(-50%);
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--color-text-faint);
-  animation: scrollCuePulse 3.0s ease-in-out infinite;
-}
-
-.scrollLabel {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-}
-
-@keyframes scrollCuePulse {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    opacity: 0.9;
-    transform: translateX(-50%) translateY(6px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scrollCue {
-    animation: none;
-    opacity: 0.6;
+// 広い画面では、文章を各セクションの本文列と同じ位置から始める
+@media (min-width: 901px) {
+  .tagline,
+  .affiliation {
+    margin-left: calc(var(--label-col) + var(--label-gap));
   }
 }
 
 @media (max-width: 480px) {
-  .hero {
-    padding: 1.5rem 1.25rem;
+  .seal {
+    width: 44px;
+    height: 44px;
   }
 
   .name {
-    gap: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .tagline {
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voice {
+    animation: none;
+    clip-path: none;
   }
 }
