@@ -8,7 +8,7 @@ export interface TimelineItem {
 export const timeline: TimelineItem[] = [
   { year: '2016', title: '灘中学校 入学' },
   { year: '2018', title: '中学の委員会に動画編集を広め、動画記録の仕組みを整備' },
-  { year: '2019', title: 'PKSHA Technology 夏季短期インターン（1回目）', sub: '深層学習を学ぶ' },
+  { year: '2019', title: 'PKSHA Technology 夏季短期インターン（1回目）', sub: '深層学習を習得' },
   { year: '2020', title: 'PKSHA Technology 夏季短期インターン（2回目）' },
   { year: '2020', title: '生徒会誌 副会長（会誌担当）' },
   { year: '2021', title: '文化委員会に動画班を設立' },

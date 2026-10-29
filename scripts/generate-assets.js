@@ -29,7 +29,7 @@ const OG_HEIGHT = 630
 // 名前・二文・所属を変えたときは両方を直す。
 const NAME = '安尾 優輝'
 const NAME_ROMANIZED = 'Yuki Yasuo'
-const TAGLINE = ['声帯を使えなくなった人のための代用発声を研究しています。', '地域の記録映像や紙面もつくっています。']
+const TAGLINE = ['声帯を使えなくなった人のための、代用発声の研究。', '地域の記録映像と紙面の制作。']
 const AFFILIATION = '筑波大学大学院 エンパワーメント情報学プログラム 一貫制博士課程／音響工学'
 
 function voiceLinePath(width, height, offsetX, offsetY) {

@@ -22,7 +22,7 @@ Next.js (App Router) で構築し、GitHub Pages に静的サイトとして公�
 - 色は `app/globals.scss` の4つだけ: 紙色 `--paper`、墨色 `--ink`、補足用 `--ink-soft`、罫線 `--rule`。アクセントの朱色 `--accent` は落款（名前の横の印）と、リンク（ナビ・本文・連絡先）のホバーにしか使わない
 - 書体は明朝（Noto Serif JP: 見出し・名前・制作タイトル）とゴシック（Noto Sans JP: 本文）の2つ。`app/fonts.ts`
 - 各セクションは左に見出し、右に本文の2段組み（`components/Section.tsx`）。「制作と研究」だけは全幅で並べて単調さを崩す
-- 画像はプロフィール写真1枚。動画の埋め込み・サムネイル・動画へのリンクは載せない（実績の説明は文章で書く）。外部リンクは GitHub だけ
+- 画像はプロフィール写真1枚。動画の埋め込み・サムネイル・制作物へのリンクは載せない（実績の説明は文章で書く）。外部リンクは連絡先の GitHub だけ
 - 自動で動くのは、読み込み時にヒーローの「声の線」（`lib/voiceLine.ts` が生成する決定的な波形）が一度現れるだけ。`prefers-reduced-motion` では静止。ホバーの色変化は操作への反応なので可
 - スキルの数値バーは廃止し、作業領域ごとに何ができるかを文章で書く（`data/skills.ts`）
 - 落款「優輝」は `lib/sealPaths.ts` の字形パス（Noto Serif CJK JP の輪郭）で描き、`public/favicon.svg` と同じ形
@@ -32,7 +32,7 @@ Next.js (App Router) で構築し、GitHub Pages に静的サイトとして公�
 | ファイル | 内容 |
 |---|---|
 | `data/profile.ts` | 名前、ヒーローの二文、所属、自己紹介の段落、連絡先 |
-| `data/works.ts` | 制作と研究。並びは見せたい順（おおむね動きの新しいものが上）。`period`（時期）・`role`（担当）・`summary`（段落の配列） |
+| `data/works.ts` | 制作と研究。並びは見せたい順（おおむね動きの新しいものが上）。`period`（時期）・`role`（担当）・`summary`（段落の配列、体言止め） |
 | `data/skills.ts` | できること。見出しは「作業領域」で揃える |
 | `data/timeline.ts` | 経歴。年と節目だけを書き、中身は `works.ts` に書く |
 

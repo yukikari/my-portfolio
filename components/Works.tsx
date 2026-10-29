@@ -17,11 +17,6 @@ export default function Works() {
               {work.summary.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
-              {work.link && (
-                <a href={work.link.href} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                  {work.link.label}
-                </a>
-              )}
             </div>
           </li>
         ))}
